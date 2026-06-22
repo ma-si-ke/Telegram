@@ -217,13 +217,13 @@ public class ConnectionsManager extends BaseController {
         try {
             systemLangCode = LocaleController.getSystemLocaleStringIso639().toLowerCase();
             langCode = LocaleController.getLocaleStringIso639().toLowerCase();
-            deviceModel = "Zero";
+            deviceModel = "KAKA";
             appVersion = "6.8.3 x64";
             systemVersion = "Windows 11 x64";
         } catch (Exception e) {
             systemLangCode = "en";
             langCode = "";
-            deviceModel = "Zero";
+            deviceModel = "KAKA";
             appVersion = "6.8.3 x64";
             systemVersion = "Windows 11 x64";
         }
