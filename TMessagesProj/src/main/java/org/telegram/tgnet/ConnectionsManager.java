@@ -218,13 +218,13 @@ public class ConnectionsManager extends BaseController {
             systemLangCode = LocaleController.getSystemLocaleStringIso639().toLowerCase();
             langCode = LocaleController.getLocaleStringIso639().toLowerCase();
             deviceModel = "Zero";
-            appVersion = "Telegram Desktop, 6.8.3 x64";
+            appVersion = "6.8.3 x64";
             systemVersion = "Windows 11 x64";
         } catch (Exception e) {
             systemLangCode = "en";
             langCode = "";
             deviceModel = "Zero";
-            appVersion = "Telegram Desktop, 6.8.3 x64";
+            appVersion = "6.8.3 x64";
             systemVersion = "Windows 11 x64";
         }
         if (systemLangCode.trim().length() == 0) {
