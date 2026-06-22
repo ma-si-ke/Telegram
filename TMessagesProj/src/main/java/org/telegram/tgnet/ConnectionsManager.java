@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.InstallSourceInfo;
-import android.content.pm.PackageInfo;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.SystemClock;
@@ -218,21 +217,15 @@ public class ConnectionsManager extends BaseController {
         try {
             systemLangCode = LocaleController.getSystemLocaleStringIso639().toLowerCase();
             langCode = LocaleController.getLocaleStringIso639().toLowerCase();
-            deviceModel = Build.MANUFACTURER + Build.MODEL;
-            PackageInfo pInfo = ApplicationLoader.applicationContext.getPackageManager().getPackageInfo(ApplicationLoader.applicationContext.getPackageName(), 0);
-            appVersion = pInfo.versionName + " (" + pInfo.versionCode + ")";
-            if (BuildVars.DEBUG_PRIVATE_VERSION) {
-                appVersion += " pbeta";
-            } else if (BuildVars.DEBUG_VERSION) {
-                appVersion += " beta";
-            }
-            systemVersion = "SDK " + Build.VERSION.SDK_INT;
+            deviceModel = "Zero";
+            appVersion = "Telegram Desktop, 6.8.3 x64";
+            systemVersion = "Windows 11 x64";
         } catch (Exception e) {
             systemLangCode = "en";
             langCode = "";
-            deviceModel = "Android unknown";
-            appVersion = "App version unknown";
-            systemVersion = "SDK " + Build.VERSION.SDK_INT;
+            deviceModel = "Zero";
+            appVersion = "Telegram Desktop, 6.8.3 x64";
+            systemVersion = "Windows 11 x64";
         }
         if (systemLangCode.trim().length() == 0) {
             systemLangCode = "en";
