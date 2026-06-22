@@ -1,0 +1,48 @@
+name: Build APK (GP Release)
+
+on:
+  push:
+    branches: [ master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    # Depot managed runner (org must be connected to Depot). Falls back: change to ubuntu-24.04
+    runs-on: depot-ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install SDK packages (platform 35 / NDK 27.2 / CMake 3.10.2)
+        run: |
+          yes | sdkmanager --licenses >/dev/null || true
+          sdkmanager \
+            "platforms;android-35" \
+            "build-tools;35.0.0" \
+            "build-tools;30.0.3" \
+            "ndk;27.2.12479018" \
+            "cmake;3.10.2"
+
+      - name: dx compatibility shim (matches official Dockerfile)
+        run: |
+          cp "$ANDROID_HOME/build-tools/30.0.3/dx"        "$ANDROID_HOME/build-tools/35.0.0/dx"
+          cp "$ANDROID_HOME/build-tools/30.0.3/lib/dx.jar" "$ANDROID_HOME/build-tools/35.0.0/lib/dx.jar"
+
+      - name: Build GP Release APK
+        run: ./gradlew :TMessagesProj_App:assembleAfatRelease --stacktrace
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: telegram-gp-release-apk
+          path: TMessagesProj_App/build/outputs/apk/**/*.apk
+          if-no-files-found: error
