@@ -28,7 +28,7 @@ jobs:
             "build-tools;35.0.0" \
             "build-tools;30.0.3" \
             "ndk;27.2.12479018" \
-            "cmake;3.10.2"
+            "cmake;3.10.2.4988404"
 
       - name: dx compatibility shim (matches official Dockerfile)
         run: |
